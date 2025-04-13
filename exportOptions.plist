@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>development</string> <!-- Dùng 'development' nếu bạn chỉ muốn thử nghiệm trên thiết bị của mình -->
+    <key>bundleIdentifier</key>
+    <string>com.yourcompany.MinimalCameraApp</string> <!-- Thay bằng Bundle Identifier của bạn -->
+</dict>
+</plist>
