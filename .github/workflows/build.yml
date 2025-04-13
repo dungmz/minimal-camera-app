@@ -1,0 +1,33 @@
+name: Build and Export IPA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Xcode
+        uses: macos-setup-xcode@v2
+
+      - name: Install dependencies
+        run: |
+          sudo gem install cocoapods
+          pod install
+
+      - name: Build IPA
+        run: |
+          xcodebuild -workspace MinimalCameraApp.xcworkspace -scheme MinimalCameraApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/MinimalCameraApp.xcarchive
+          xcodebuild -exportArchive -archivePath $PWD/build/MinimalCameraApp.xcarchive -exportPath $PWD/build -exportOptionsPlist exportOptions.plist
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: ipa
+          path: build/*.ipa
